@@ -1,0 +1,6 @@
+---
+- import_tasks: syslog-elks.yml
+  when: "'rsyslog_elks' in group_names"
+
+- import_tasks: haproxy-elks.yml
+  when: "'haproxy_elks' in group_names"

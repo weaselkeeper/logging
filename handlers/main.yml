@@ -1,0 +1,6 @@
+---
+# handlers file for logging-elks
+- name: restart rsyslog
+  service:
+    name: rsyslog
+    state: restarted

@@ -1,0 +1,8 @@
+# /etc/rsyslog.d/60-logging-elks
+*.*;syslog action(
+  type="omfwd"
+  Target="{{ InjestIP }}"
+  Port="{{ InjestPort }}"
+  Protocol="{{ InjestProto }}"
+)
+

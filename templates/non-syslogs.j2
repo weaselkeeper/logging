@@ -1,0 +1,17 @@
+
+# /etc/rsyslog.d/{{ non-syslog-logfile }}
+input(type="imfile"
+      File="{{ logdir }}/{{ sublogdir }}/{{ non-syslog-logfile }}"
+      Tag="{{ log-tag }}"
+)
+
+if $programname == 'nova-api-metadata' then {
+    action(
+      type="omfwd"
+      Target="{{ InjestIP }}"
+      Port="{{ InjestPort }}"
+      Protocol="{{ InjestProto }}"
+    )
+    stop
+}
+

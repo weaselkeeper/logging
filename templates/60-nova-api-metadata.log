@@ -1,0 +1,16 @@
+# /etc/rsyslog.d/60-nova-api-metadata.conf
+input(type="imfile"
+      File="/var/log/nova/nova-api-metadata.log"
+      Tag="nova-api-metadata"
+)
+
+if $programname == 'nova-api-metadata' then {
+    action(
+      type="omfwd"
+      Target="{{ InjestIP }}"
+      Port="{{ InjestPort }}"
+      Protocol="{{ InjestProto }}"
+    )
+    stop
+}
+

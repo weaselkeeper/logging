@@ -1,0 +1,11 @@
+---
+- name: haproxy to log to central log server
+  become: true
+  become_user: root
+  template:
+    src: haproxy.conf.j2
+    dest: /etc/rsyslog.d/49-haproxy.conf
+    mode: 0644
+    owner: 0
+    group: 0
+  notify: restart rsyslog
