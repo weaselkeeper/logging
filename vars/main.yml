@@ -1,6 +1,6 @@
 ---
 # vars file for weaselkeeper.logging
 
-InjestIP: "10.35.22.79"
+InjestIP: "1.2.3.4"
 InjestPort: "5514"
 InjestProto: "tcp"
