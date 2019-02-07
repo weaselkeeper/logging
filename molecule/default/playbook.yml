@@ -1,5 +1,9 @@
 ---
 - name: Converge
   hosts: all
+  vars:
+    - InjestIP: "1.2.3.4"
+    - InjestPortSyslog: "1111"
+    - InjestProto: "tcp"
   roles:
     - role: weaselkeeper.logging
