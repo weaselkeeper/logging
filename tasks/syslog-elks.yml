@@ -1,4 +1,16 @@
 ---
+- name: Install rsyslog package
+  become: true
+  apt:
+    name:
+      - rsyslog
+  when:
+    - "'rsyslog_elks' in group_names"
+    - use_rsyslog
+  tags:
+    - apt
+    - packages
+
 - name: Get rsyslog package status and version
   command: >
     dpkg-query --show \
