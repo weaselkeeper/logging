@@ -1,4 +1,31 @@
 ---
+- name: Install rsyslog package
+  become: true
+  apt:
+    name:
+      - rsyslog
+  when:
+    - use_rsyslog
+  tags:
+    - apt
+    - packages
+
+- name: Get rsyslog package status and version
+  command: >
+    dpkg-query --show \
+      --showformat '{"version":"${Version}","status":"${db:Status-Abbrev}"}' \
+      rsyslog
+  register:
+    rsyslog_status
+
+- name: Set fact from rsyslog version
+  set_fact:
+    rsyslog_ver_major: "{{ (rsyslog_status.stdout|from_json).version.split('.')[0]|int }}"
+    rsyslog_ver_minor: "{{ (rsyslog_status.stdout|from_json).version.split('.')[1]|int }}"
+  when:
+    - rsyslog_status.stdout is defined
+    - (rsyslog_status.stdout|from_json).status|trim == "ii"
+
 - name: Syslog to log to central log server
   become: true
   become_user: root
@@ -8,4 +35,9 @@
     mode: 0644
     owner: 0
     group: 0
+    validate: rsyslogd -N2 -f %s -f /etc/rsyslog.conf
   notify: restart rsyslog
+  when:
+      - use_remote_rsyslog
+
+...

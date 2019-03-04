@@ -1,2 +1,8 @@
 ---
 # defaults file for weaselkeeper.logging
+use_rsyslog: true
+use_remote_rsyslog: true
+
+InjestIP: 127.0.0.1
+InjestPortSyslog: 514
+InjestProto: "udp"
