@@ -5,7 +5,6 @@
     name:
       - rsyslog
   when:
-    - "'rsyslog_elks' in group_names"
     - use_rsyslog
   tags:
     - apt
