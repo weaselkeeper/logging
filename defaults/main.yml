@@ -1,2 +1,5 @@
 ---
 # defaults file for weaselkeeper.logging
+InjestIP: 127.0.0.1
+InjestPortSyslog: 514
+InjestProto: "udp"
