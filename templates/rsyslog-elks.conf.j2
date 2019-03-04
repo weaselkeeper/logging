@@ -4,5 +4,9 @@
   Target="{{ InjestIP }}"
   Port="{{ InjestPortSyslog }}"
   Protocol="{{ InjestProto }}"
+{% if InjestProto == "tcp" and rsyslog_ver_major|int >= 8 %}
+  KeepAlive="on"
+  ResendLastMSGOnReconnect="on"
+{% endif %}
 )
 
