@@ -20,19 +20,18 @@
 
 - name: Set fact from rsyslog version
   set_fact:
-    rsyslog_ver_major: "{{ (rsyslog_status.stdout|from_json).version.split('.')[0]|int }}"
-    rsyslog_ver_minor: "{{ (rsyslog_status.stdout|from_json).version.split('.')[1]|int }}"
+    rsyslog_ver_major: "{{ (rsyslog_status.stdout|from_json).version.split('.')[0] }}"
+    rsyslog_ver_minor: "{{ (rsyslog_status.stdout|from_json).version.split('.')[1] }}"
   when:
     - rsyslog_status.stdout is defined
     - (rsyslog_status.stdout|from_json).status|trim == "ii"
-
 
 - name: Central log server does not need 'last message repeated'
   become: true
   lineinfile:
     path: /etc/rsyslog.conf
     line: '$RepeatedMsgReduction off'
-    regexp: '^\\$RepeatedMsgReduction  '
+    regexp: '^\$RepeatedMsgReduction '
     insertafter: "^# Filter duplicated messages"
     validate: rsyslogd -N2 -f %s
   notify: restart rsyslog
@@ -44,8 +43,8 @@
   lineinfile:
     path: /etc/rsyslog.conf
     line: '$PreserveFQDN on'
-    regexp: '^\\$PreserveFQDN '
-    insertbefore: "^\\$IncludeConfig "
+    regexp: '^\$PreserveFQDN '
+    insertbefore: '^\$IncludeConfig '
     validate: rsyslogd -N2 -f %s
   notify: restart rsyslog
   when:
@@ -56,7 +55,7 @@
   become_user: root
   template:
     src: rsyslog-elks.conf.j2
-    dest: /etc/rsyslog.d/60-logging-elks.conf
+    dest: "/etc/rsyslog.d/{{ rsyslog_forwarder_filename }}"
     mode: 0644
     owner: 0
     group: 0
