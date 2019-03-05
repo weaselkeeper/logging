@@ -26,6 +26,18 @@
     - rsyslog_status.stdout is defined
     - (rsyslog_status.stdout|from_json).status|trim == "ii"
 
+- name: When logging to central log server use full name
+  become: true
+  lineinfile:
+    path: /etc/rsyslog.conf
+    line: '$PreserveFQDN on'
+    regexp: '^\\$PreserveFQDN '
+    insertbefore: "^\\$IncludeConfig "
+    validate: rsyslogd -N2 -f %s
+  notify: restart rsyslog
+  when:
+      - rsyslog_use_remote
+
 - name: Syslog to log to central log server
   become: true
   become_user: root
