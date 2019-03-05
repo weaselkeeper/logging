@@ -1,10 +1,10 @@
-# /etc/rsyslog.d/60-logging-elks
+# /etc/rsyslog.d/{{ rsyslog_forwarder_filename }}
 *.*;syslog action(
   type="omfwd"
   Target="{{ InjestIP }}"
   Port="{{ InjestPortSyslog }}"
   Protocol="{{ InjestProto }}"
-{% if InjestProto == "tcp" and rsyslog_ver_major|int >= 8 %}
+{% if InjestProto == "tcp" and rsyslog_ver_major|default(8)|int >= 8 %}
   KeepAlive="on"
   ResendLastMSGOnReconnect="on"
 {% endif %}
