@@ -26,6 +26,19 @@
     - rsyslog_status.stdout is defined
     - (rsyslog_status.stdout|from_json).status|trim == "ii"
 
+
+- name: Central log server does not need 'last message repeated'
+  become: true
+  lineinfile:
+    path: /etc/rsyslog.conf
+    line: '$RepeatedMsgReduction off'
+    regexp: '^\\$RepeatedMsgReduction  '
+    insertafter: "^# Filter duplicated messages"
+    validate: rsyslogd -N2 -f %s
+  notify: restart rsyslog
+  when:
+      - rsyslog_use_remote
+
 - name: When logging to central log server use full name
   become: true
   lineinfile:
