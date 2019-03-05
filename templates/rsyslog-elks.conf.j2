@@ -1,4 +1,4 @@
-# /etc/rsyslog.d/60-logging-elks
+# /etc/rsyslog.d/{{ rsyslog_forwarder_filename }}
 *.*;syslog action(
   type="omfwd"
   Target="{{ InjestIP }}"

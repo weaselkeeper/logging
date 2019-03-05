@@ -3,6 +3,7 @@
 use_rsyslog: true
 rsyslog_use_remote: true
 rsyslog_use_fqdn: true
+rsyslog_forwarder_filename: "60-logging-elks.conf"
 
 InjestIP: 127.0.0.1
 InjestPortSyslog: 514
