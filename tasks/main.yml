@@ -3,4 +3,4 @@
   when:
     - "'rsyslog_elks' in group_names"
     - use_rsyslog
-    - use_remote_rsyslog
+    - rsyslog_use_remote

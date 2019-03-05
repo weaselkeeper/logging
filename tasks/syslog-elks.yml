@@ -38,6 +38,6 @@
     validate: rsyslogd -N2 -f %s -f /etc/rsyslog.conf
   notify: restart rsyslog
   when:
-      - use_remote_rsyslog
+      - rsyslog_use_remote
 
 ...
