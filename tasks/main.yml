@@ -1,6 +1,5 @@
 ---
 - import_tasks: syslog-elks.yml
   when:
-    - "'rsyslog_elks' in group_names"
+    - (("'rsyslog_elks' in group_names") or rsyslog_use_remote)
     - use_rsyslog
-    - rsyslog_use_remote

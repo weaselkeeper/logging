@@ -10,6 +10,13 @@
     - apt
     - packages
 
+- name: Set fact to unify variables
+  set_fact:
+    rsyslog_use_remote: true
+  when:
+    - "'rsyslog_elks' in group_names"
+    - not rsyslog_use_remote
+
 - name: Get rsyslog package status and version
   command: >
     dpkg-query --show \
