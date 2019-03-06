@@ -22,6 +22,8 @@
     dpkg-query --show \
       --showformat '{"version":"${Version}","status":"${db:Status-Abbrev}"}' \
       rsyslog
+  when:
+    - rsyslog_use_remote
   register:
     rsyslog_status
 
@@ -43,7 +45,7 @@
     validate: rsyslogd -N2 -f %s
   notify: restart rsyslog
   when:
-      - rsyslog_use_remote
+    - rsyslog_use_remote
 
 - name: When logging to central log server use full name
   become: true
@@ -55,7 +57,7 @@
     validate: rsyslogd -N2 -f %s
   notify: restart rsyslog
   when:
-      - rsyslog_use_remote
+    - rsyslog_use_remote
 
 - name: Syslog to log to central log server
   become: true
@@ -69,6 +71,6 @@
     validate: rsyslogd -N2 -f %s -f /etc/rsyslog.conf
   notify: restart rsyslog
   when:
-      - rsyslog_use_remote
+    - rsyslog_use_remote
 
 ...
