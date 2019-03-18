@@ -24,6 +24,7 @@
       rsyslog
   when:
     - rsyslog_use_remote
+  changed_when: false
   register:
     rsyslog_status
 
