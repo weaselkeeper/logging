@@ -33,6 +33,7 @@
   set_fact:
     rsyslog_ver_major: "{{ (rsyslog_status.stdout|from_json).version.split('.')[0] }}"
     rsyslog_ver_minor: "{{ (rsyslog_status.stdout|from_json).version.split('.')[1] }}"
+  check_mode: no
   when:
     - rsyslog_status.stdout is defined
     - (rsyslog_status.stdout|from_json).status|trim == "ii"
