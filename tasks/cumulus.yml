@@ -1,0 +1,25 @@
+---
+- name: create rsyslog config for log forwarding - OLD format for 2.x
+  template:
+    src: rsyslog-cumulus.conf.j2
+    dest: /etc/rsyslog.d/11-remote.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart rsyslog
+  when:
+    - ansible_lsb.release is version ('2.5', '>=')
+    - ansible_lsb.release is version ('2.6', '<')
+
+- name: create rsyslog config for log forwarding - NEW format for 3.x
+  template:
+    src: rsyslog-cumulus_vrf.conf.j2
+    dest: /etc/rsyslog.d/11-remote.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart rsyslog
+  when:
+    - ansible_lsb.release is version ('3.3', '>=')
+    - ansible_lsb.release is version ('3.8', '<')
+
