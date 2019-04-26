@@ -8,4 +8,5 @@ rsyslog_forwarder_filename: "60-logging-elks.conf"
 InjestIP: 127.0.0.1
 InjestPortSyslog: 514
 InjestProto: "udp"
-
+InjestPortSyslogUDP: "514"
+InjestViaInterface: "eth0"
