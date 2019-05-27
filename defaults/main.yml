@@ -10,3 +10,7 @@ InjestPortSyslog: 514
 InjestProto: "udp"
 InjestPortSyslogUDP: "514"
 InjestViaInterface: "eth0"
+
+## APT
+apt_force_apt_get: yes
+apt_install_recommends: no

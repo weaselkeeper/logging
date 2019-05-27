@@ -4,8 +4,10 @@
   apt:
     name:
       - rsyslog
+    force_apt_get: "{{ apt_force_apt_get }}"
+    install_recommends: "{{ apt_install_recommends }}"
   when:
-    - use_rsyslog
+    - use_rsyslog | bool
   tags:
     - apt
     - packages
@@ -15,7 +17,7 @@
     rsyslog_use_remote: true
   when:
     - "'rsyslog_elks' in group_names"
-    - not rsyslog_use_remote
+    - not rsyslog_use_remote | bool
 
 - name: Get rsyslog package status and version
   command: >
@@ -23,7 +25,7 @@
       --showformat '{"version":"${Version}","status":"${db:Status-Abbrev}"}' \
       rsyslog
   when:
-    - rsyslog_use_remote
+    - rsyslog_use_remote | bool
   changed_when: false
   check_mode: no
   register:
@@ -48,7 +50,7 @@
     validate: rsyslogd -N2 -f %s
   notify: restart rsyslog
   when:
-    - rsyslog_use_remote
+    - rsyslog_use_remote | bool
 
 - name: When logging to central log server use full name
   become: true
@@ -60,7 +62,7 @@
     validate: rsyslogd -N2 -f %s
   notify: restart rsyslog
   when:
-    - rsyslog_use_remote
+    - rsyslog_use_remote | bool
 
 - name: Syslog to log to central log server
   become: true
@@ -69,11 +71,11 @@
     src: rsyslog-elks.conf.j2
     dest: "/etc/rsyslog.d/{{ rsyslog_forwarder_filename }}"
     mode: 0644
-    owner: 0
-    group: 0
+    owner: '0'
+    group: '0'
     validate: rsyslogd -N2 -f %s
   notify: restart rsyslog
   when:
-    - rsyslog_use_remote
+    - rsyslog_use_remote | bool
 
 ...
