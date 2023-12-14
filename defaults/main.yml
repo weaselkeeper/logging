@@ -10,3 +10,6 @@ InjestPortSyslog: 514
 InjestProto: "udp"
 InjestPortSyslogUDP: "514"
 InjestViaInterface: "eth0"
+
+rsyslog_extra_options_before_sending:
+

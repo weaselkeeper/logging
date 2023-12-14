@@ -1,4 +1,5 @@
 # /etc/rsyslog.d/{{ rsyslog_forwarder_filename }}
+{{ rsyslog_extra_options_before_sending }}
 *.*;syslog.* action(
   type="omfwd"
   Target="{{ InjestIP }}"
